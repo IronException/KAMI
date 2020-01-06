@@ -2,7 +2,7 @@ package me.zeroeightsix.kami.module.modules.bewwawho.capes;
 
 import com.google.gson.Gson;
 import me.zeroeightsix.kami.KamiMod;
-import me.zeroeightsix.kami.util.Wrapper;
+import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 /***
- * @author crystalling
+ * @author Crystallinqq
  * Updated by S-B99 on 20/12/19
  */
 public class Capes {

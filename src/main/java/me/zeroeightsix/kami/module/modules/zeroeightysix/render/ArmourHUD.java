@@ -3,23 +3,33 @@ package me.zeroeightsix.kami.module.modules.zeroeightysix.render;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
-import me.zeroeightsix.kami.util.ColourHolder;
+import me.zeroeightsix.kami.util.zeroeightysix.ColourHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.GameType;
 
 /**
  * Created by 086 on 24/01/2018.
  */
-@Module.Info(name = "ArmourHUD", category = Module.Category.RENDER)
+@Module.Info(name = "ArmourHUD", category = Module.Category.GUI, showOnArray = Module.ShowOnArray.OFF)
 public class ArmourHUD extends Module {
 
-    private static RenderItem itemRender = Minecraft.getMinecraft()
-            .getRenderItem();
+    private static RenderItem itemRender = Minecraft.getMinecraft().getRenderItem();
 
     private Setting<Boolean> damage = register(Settings.b("Damage", false));
+
+    private NonNullList<ItemStack> getArmour() {
+        if (mc.playerController.getCurrentGameType().equals(GameType.CREATIVE) || mc.playerController.getCurrentGameType().equals(GameType.SPECTATOR)) {
+            return NonNullList.withSize(4, ItemStack.EMPTY);
+        }
+        else {
+            return mc.player.inventory.armorInventory;
+        }
+    }
 
     @Override
     public void onRender() {
@@ -29,7 +39,8 @@ public class ArmourHUD extends Module {
         int i = resolution.getScaledWidth() / 2;
         int iteration = 0;
         int y = resolution.getScaledHeight() - 55 - (mc.player.isInWater() ? 10 : 0);
-        for (ItemStack is : mc.player.inventory.armorInventory) {
+
+        for (ItemStack is : getArmour()) {
             iteration++;
             if (is.isEmpty()) continue;
             int x = i - 90 + (9 - iteration) * 20 + 2;
@@ -54,8 +65,7 @@ public class ArmourHUD extends Module {
                 mc.fontRenderer.drawStringWithShadow(dmg + "", x + 8 - mc.fontRenderer.getStringWidth(dmg + "") / 2, y - 11, ColourHolder.toHex((int) (red * 255), (int) (green * 255), 0));
             }
         }
-
-        GlStateManager.enableDepth();
-        GlStateManager.disableLighting();
+    GlStateManager.enableDepth();
+    GlStateManager.disableLighting();
     }
 }

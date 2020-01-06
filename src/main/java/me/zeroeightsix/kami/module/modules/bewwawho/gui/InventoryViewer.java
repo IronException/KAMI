@@ -1,4 +1,4 @@
-package me.zeroeightsix.kami.module.modules.bewwawho.render;
+package me.zeroeightsix.kami.module.modules.bewwawho.gui;
 
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.module.Module;
@@ -13,17 +13,47 @@ import org.lwjgl.opengl.GL11;
 
 /***
  * @author Waizy
- * :clown: emoji, I know
- * they probably didn't write it but I don't have any other credit
  * Updated by S-B99 on 22/12/19
  */
-@Module.Info(name = "InvPreview", category = Module.Category.RENDER, description = "View your inventory on screen", showOnArray = Module.ShowOnArray.OFF)
-public class InvPreview extends Module {
-    private static final ResourceLocation box;
+@Module.Info(name = "InventoryViewer", category = Module.Category.GUI, description = "View your inventory on screen", showOnArray = Module.ShowOnArray.OFF)
+public class InventoryViewer extends Module {
+
     private Setting<Integer> optionX;
     private Setting<Integer> optionY;
+    private Setting<ViewMode> viewMode = register(Settings.e("Appearance", ViewMode.ICONLARGE));
 
-    public InvPreview() {
+    private enum ViewMode {
+        ICONLARGEBG, ICONLARGE, MC, ICON, ICONBACK, CLEAR, SOLID, SOLIDCLEAR
+    }
+
+    private ResourceLocation getBox() {
+        if (viewMode.getValue().equals(ViewMode.CLEAR)) {
+            return new ResourceLocation("textures/gui/container/invpreview.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.ICONBACK)) {
+            return new ResourceLocation("textures/gui/container/one.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.SOLID)) {
+            return new ResourceLocation("textures/gui/container/two.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.SOLIDCLEAR)) {
+            return new ResourceLocation("textures/gui/container/three.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.ICON)) {
+            return new ResourceLocation("textures/gui/container/four.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.ICONLARGE)) {
+            return new ResourceLocation("textures/gui/container/five.png");
+        }
+        else if (viewMode.getValue().equals(ViewMode.ICONLARGEBG)) {
+            return new ResourceLocation("textures/gui/container/six.png");
+        }
+        else {
+            return new ResourceLocation("textures/gui/container/generic_54.png");
+        }
+    }
+
+    public InventoryViewer() {
         this.optionX = this.register(Settings.i("X", 574));
         this.optionY = this.register(Settings.i("Y", 469));
     }
@@ -71,7 +101,7 @@ public class InvPreview extends Module {
 
     public void onEnable() {
         if (mc.player != null) {
-            Command.sendChatMessage("[InvPreview] Right click the module to move it around");
+            Command.sendChatMessage("[InventoryViewer] Right click the module to move it around");
         } else if (mc.player == null) {
             return;
         }
@@ -79,15 +109,16 @@ public class InvPreview extends Module {
 
     @Override
     public void onRender() {
-        final NonNullList<ItemStack> items = (NonNullList<ItemStack>) InvPreview.mc.player.inventory.mainInventory;
+        final NonNullList<ItemStack> items = (NonNullList<ItemStack>) InventoryViewer.mc.player.inventory.mainInventory;
         this.boxrender(this.optionX.getValue(), this.optionY.getValue());
         this.itemrender(items, this.optionX.getValue(), this.optionY.getValue());
     }
 
     private void boxrender(final int x, final int y) {
         preboxrender();
-        InvPreview.mc.renderEngine.bindTexture(InvPreview.box);
-        InvPreview.mc.ingameGUI.drawTexturedModalRect(x, y, 7, 17, 162, 54);
+        ResourceLocation box = getBox();
+        InventoryViewer.mc.renderEngine.bindTexture(box);
+        InventoryViewer.mc.ingameGUI.drawTexturedModalRect(x, y, 7, 17, 162, 54); // 56 136 1296 432
         postboxrender();
     }
 
@@ -96,13 +127,9 @@ public class InvPreview extends Module {
             final int slotx = x + 1 + item % 9 * 18;
             final int sloty = y + 1 + (item / 9 - 1) * 18;
             preitemrender();
-            InvPreview.mc.getRenderItem().renderItemAndEffectIntoGUI((ItemStack) items.get(item), slotx, sloty);
-            InvPreview.mc.getRenderItem().renderItemOverlays(InvPreview.mc.fontRenderer, (ItemStack) items.get(item), slotx, sloty);
+            InventoryViewer.mc.getRenderItem().renderItemAndEffectIntoGUI((ItemStack) items.get(item), slotx, sloty);
+            InventoryViewer.mc.getRenderItem().renderItemOverlays(InventoryViewer.mc.fontRenderer, (ItemStack) items.get(item), slotx, sloty);
             postitemrender();
         }
-    }
-
-    static {
-        box = new ResourceLocation("textures/gui/container/invpreview.png");
     }
 }

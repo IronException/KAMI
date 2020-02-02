@@ -1,20 +1,18 @@
 package me.zeroeightsix.kami.command.commands;
 
+import io.netty.buffer.Unpooled;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
-import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
-
-import net.minecraft.item.ItemWritableBook;
+import me.zeroeightsix.kami.util.Wrapper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.item.ItemWritableBook;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.CPacketCustomPayload;
 
 import java.util.ArrayList;
-
-import io.netty.buffer.Unpooled;
 
 /**
  * @author 0x2E | PretendingToCode
@@ -22,8 +20,8 @@ import io.netty.buffer.Unpooled;
 public class SignBookCommand extends Command {
 
     public SignBookCommand() {
-        super("signbook", new ChunkBuilder().append("name").build());
-        setDescription("Colored book names. #n for a new line and & for color codes");
+        super("signbook", new ChunkBuilder().append("name").build(), "book", "sign");
+        setDescription("Colored book names. #n for a new line and & for colour codes");
     }
 
     @Override

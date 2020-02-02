@@ -6,7 +6,7 @@ import com.mojang.util.UUIDTypeAdapter;
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
 import me.zeroeightsix.kami.command.syntax.parsers.EnumParser;
-import me.zeroeightsix.kami.util.zeroeightysix.Friends;
+import me.zeroeightsix.kami.util.Friends;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
@@ -26,7 +26,7 @@ public class FriendCommand extends Command {
         super("friend", new ChunkBuilder()
                 .append("mode", true, new EnumParser(new String[]{"add", "del"}))
                 .append("name")
-                .build());
+                .build(), "friends", "f");
         setDescription("Add someone as your friend!");
     }
 

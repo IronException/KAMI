@@ -1,13 +1,13 @@
 package me.zeroeightsix.kami.gui.kami.theme.kami;
 
-import me.zeroeightsix.kami.command.Command;
+import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.gui.kami.component.ActiveModules;
 import me.zeroeightsix.kami.gui.rgui.component.AlignedComponent;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
-import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
+import me.zeroeightsix.kami.util.Wrapper;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -62,7 +62,7 @@ public class KamiActiveModulesUI extends AbstractComponentUI<ActiveModules> {
             if (module.getShowOnArray().equals(Module.ShowOnArray.ON)) {
                 int rgb = Color.HSBtoRGB(hue[0], 1, 1);
                 String s = module.getHudInfo();
-                String text = module.getName() + (s == null ? "" : " " + Command.SECTION_SIGN + "7" + s);
+                String text = module.getName() + (s == null ? "" : " " + KamiMod.colour + "7" + s);
                 int textwidth = renderer.getStringWidth(text);
                 int textheight = renderer.getFontHeight() + 1;
                 int red = (rgb >> 16) & 0xFF;

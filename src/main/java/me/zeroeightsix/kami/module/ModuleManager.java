@@ -3,10 +3,10 @@ package me.zeroeightsix.kami.module;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.modules.ClickGUI;
-import me.zeroeightsix.kami.util.zeroeightysix.ClassFinder;
-import me.zeroeightsix.kami.util.zeroeightysix.EntityUtil;
-import me.zeroeightsix.kami.util.zeroeightysix.KamiTessellator;
-import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
+import me.zeroeightsix.kami.util.ClassFinder;
+import me.zeroeightsix.kami.util.EntityUtil;
+import me.zeroeightsix.kami.util.KamiTessellator;
+import me.zeroeightsix.kami.util.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.Vec3d;
@@ -119,7 +119,11 @@ public class ModuleManager {
 
 
     public static Module getModuleByName(String name) {
-        return modules.get(lookup.get(name.toLowerCase()));
+        Integer index = lookup.get(name.toLowerCase());
+        if (index == null) {
+            throw new IllegalArgumentException("getModuleByName() failed. Are you calling this too early? Is the module spelled correctly? Please check!!!!");
+        }
+        return modules.get(index);
     }
 
     public static boolean isModuleEnabled(String moduleName) {

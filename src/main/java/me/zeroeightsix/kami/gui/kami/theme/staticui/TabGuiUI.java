@@ -5,7 +5,7 @@ import me.zeroeightsix.kami.gui.kami.component.TabGUI;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
+import me.zeroeightsix.kami.util.Wrapper;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.glColor3f;
@@ -116,7 +116,7 @@ public class TabGuiUI extends AbstractComponentUI<TabGUI> {
     }
 
     private void drawBox(int x1, int y1, int x2, int y2) {
-        // color
+        // colour
         GL11.glColor4f(0, 0, 0, 0.6f);
 
         // box

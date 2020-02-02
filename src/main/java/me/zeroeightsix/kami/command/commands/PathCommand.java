@@ -2,7 +2,7 @@ package me.zeroeightsix.kami.command.commands;
 
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
-import me.zeroeightsix.kami.module.modules.zeroeightysix.render.Pathfind;
+import me.zeroeightsix.kami.module.modules.render.Pathfind;
 import net.minecraft.pathfinding.PathPoint;
 
 /**
@@ -10,7 +10,7 @@ import net.minecraft.pathfinding.PathPoint;
  */
 public class PathCommand extends Command {
     public PathCommand() {
-        super("path", new ChunkBuilder().append("x").append("y").append("z").build());
+        super("path", new ChunkBuilder().append("x").append("y").append("z").build(), "pathfind");
         setDescription("Pathfinding for AutoWalk");
     }
 

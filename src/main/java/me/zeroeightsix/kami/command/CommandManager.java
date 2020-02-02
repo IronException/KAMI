@@ -2,7 +2,7 @@ package me.zeroeightsix.kami.command;
 
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.command.commands.BindCommand;
-import me.zeroeightsix.kami.util.zeroeightysix.ClassFinder;
+import me.zeroeightsix.kami.util.ClassFinder;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,12 +44,21 @@ public class CommandManager {
 
         for (Command c : commands) {
             if (c.getLabel().equalsIgnoreCase(label)) {
+                if (!c.getAliases().isEmpty()) {
+                    Command.sendChatMessage("This command has aliases!\n" + String.join(", ", c.getAliases()));
+                }
                 c.call(parts);
                 return;
             }
+            else for (int i = 0; i < c.getAliases().size(); i++) {
+                if (c.getAliases().get(i).equalsIgnoreCase(label)) {
+                    c.call(parts);
+                    return;
+                }
+            }
         }
 
-        Command.sendChatMessage("Unknown command. try 'commands' for a list of commands.");
+        Command.sendChatMessage("Unknown command. try 'cmds' for a list of commands.");
     }
 
     public static String[] removeElement(String[] input, int indexToDelete) {

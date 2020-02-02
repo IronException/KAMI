@@ -14,9 +14,9 @@ import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
-import me.zeroeightsix.kami.util.zeroeightysix.Bind;
-import me.zeroeightsix.kami.util.zeroeightysix.ColourHolder;
-import me.zeroeightsix.kami.util.zeroeightysix.Wrapper;
+import me.zeroeightsix.kami.util.Bind;
+import me.zeroeightsix.kami.util.ColourHolder;
+import me.zeroeightsix.kami.util.Wrapper;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -102,7 +102,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
             }
         }
 
-        if (component.isPinneable()) {
+        if (component.isPinnable()) {
             if (component.isPinned())
                 glColor3f(1, .33f, .33f);
             else
@@ -213,7 +213,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                         }
                     }
                     if (x < 10 && x > 0) {
-                        if (component.isPinneable()) {
+                        if (component.isPinnable()) {
                             component.setPinned(!component.isPinned());
                         }
                     }
